@@ -46,3 +46,5 @@ helm history mini-drive -n default	Xem lịch sử revision
 helm get values mini-drive -n default	Xem các giá trị đã truyền khi cài/upgrade
 helm get values mini-drive -n default -a	Xem toàn bộ values đang có hiệu lực
 helm get manifest mini-drive -n default	Xem Kubernetes YAML mà Helm đã triển khai
+
+sang hii 
