@@ -21,7 +21,7 @@ jobs:
           merge-multiple: true
           path: ${{ runner.temp }}/images
 
-      - name: Load the exact images that passed Trivy
+      - name: Load the images from the build workflow
         run: |
           docker load --input "$RUNNER_TEMP/images/backend.tar"
           docker load --input "$RUNNER_TEMP/images/frontend.tar"

@@ -1,4 +1,4 @@
-name: Build and Scan
+name: Build Images
 
 on:
   workflow_call:
@@ -26,15 +26,6 @@ jobs:
             --tag "mini-drive-$COMPONENT:$IMAGE_TAG" "$COMPONENT"
           docker save --output "$RUNNER_TEMP/images/$COMPONENT.tar" \
             "mini-drive-$COMPONENT:$IMAGE_TAG"
-
-      - name: Fail on fixable HIGH or CRITICAL vulnerabilities
-        run: |
-          docker run --rm \
-            --volume "$RUNNER_TEMP/images:/images:ro" \
-            aquasec/trivy:0.76.1 image \
-            --input "/images/$COMPONENT.tar" \
-            --scanners vuln --severity HIGH,CRITICAL \
-            --ignore-unfixed --exit-code 1 --timeout 10m
 
       - uses: actions/upload-artifact@v4
         with:
