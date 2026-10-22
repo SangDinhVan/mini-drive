@@ -1,0 +1,54 @@
+backend:
+  name: backend
+  replicaCount: 1
+
+  image:
+    repository: backend
+    tag: lab03
+  
+  containerPort: 8080
+
+  service:
+    type: ClusterIP
+    port: 8080
+
+  existingSecret: backend-secret
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+
+frontend:
+  name: frontend
+  replicaCount: 3
+
+  image:
+    repository: frontend
+    tag: "lab03"
+    pullPolicy: IfNotPresent
+
+  containerPort: 80
+
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30080
+
+persistence:
+  enabled: true
+  existingClaim: upload-pvc
+  mountPath: /app/uploads
+
+ingress:
+  enabled: true
+  name: mini-cloud-ingress
+  className: traefik
+  host: mini-cloud
+
+  paths:
+    backend: /api
+    frontend: /
+

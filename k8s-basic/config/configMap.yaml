@@ -1,0 +1,9 @@
+apiVersion: v1 
+kind: ConfigMap
+
+metadata: 
+  name: backend-config
+
+data: 
+  BASE_URL: "https://ai-gateway.inter-k.com/v1"
+  MODEL: "gpt-5.6-luna"

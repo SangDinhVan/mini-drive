@@ -1,0 +1,27 @@
+services:
+  backend:
+    image: backend:lab03
+    build:
+      context: ./backend
+      dockerfile: dockerfile
+    env_file:
+      - ./backend/.env
+    expose:
+      - "8080"
+    volumes:
+      - uploads-data:/app/uploads
+
+  frontend:
+    image: frontend:lab03
+    build: 
+      context: ./frontend
+      dockerfile: dockerfile
+    ports:
+      - "8088:80"
+
+    depends_on:
+      - backend
+
+volumes:
+  uploads-data:
+
